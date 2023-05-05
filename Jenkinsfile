@@ -10,6 +10,18 @@ pipeline {
         bat 'mvn clean compile'
       }
         }
+
+    stage('Run tests') {
+      steps {
+        bat 'mvn test'
+      }
+
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+        }
+      }
+    }
         stage('SonarQube analysis') {
           steps {
             script {
